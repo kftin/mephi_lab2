@@ -1,24 +1,8 @@
 #include <iostream>
 
+#include "f_lab2_cl.h"
+
 using namespace std;
-
-template <typename T>
-class DynamicArray {
-    private:
-        int length;
-        T *pointer;
-    public:
-        //T *pointer;
-        DynamicArray(T *items, int count);
-        DynamicArray(int size);
-        //DynamicArray(DynamicArray<T> & dynamicArray const);
-
-        T Get(int index);
-        int GetSize();
-
-        void Set(int index, T value);
-        void Resize(int newSize);
-};
 
 template <typename T>
 DynamicArray<T>::DynamicArray(T *items, int count) {
@@ -67,39 +51,6 @@ void DynamicArray<T>::Resize(int newSize) {
     pointer = ptr;
     length = newSize;
 }
-
-////////////////////////////////////////////////////////////////////////
-
-template <typename T>
-class LinkedList {
-    private:        
-        class Element {
-            public:
-                T data;
-                Element *next;
-        };
-
-        int length;
-        Element *head;
-        Element *tail;
-    public:
-        LinkedList(T *items, int count);
-        LinkedList();
-        //LinkedList(LinkedList <T> & list const);
-
-        T GetFirst();
-        T GetLast();
-        T Get(int index);
-        //LinkedList<T> *GetSubList(int startindex, int endindex);
-        int GetLength();
-
-        void Append(T item);
-        void Prepend(T item);
-        void InsertAt(T item, int index);
-        //LinkedList<T> *Concat(LinkedList<T> *list);
-        
-        void ClearList();
-};
 
 template <typename T>
 LinkedList<T>::LinkedList(T *items, int count) {
@@ -215,22 +166,4 @@ void LinkedList<T>::ClearList() {
             ptr_prev = ptr_prev->next;
         }
     }
-}
-
-int main() {
-    int *ptr = new int[6];
-    for (int i = 0; i < 6; i++) {
-        cin >> ptr[i];
-    }
-    LinkedList a(ptr, 6);
-    delete[] ptr;
-    cout << "first " << a.GetFirst() << endl;
-    //cout << "last" << a.GetLast() << endl;
-    //cout << "length" << a.GetLength() << endl;
-    a.InsertAt(111111, 0);
-    cout << "first " << a.Get(0) << endl;
-    //a.Prepend(111);
-    //cout << "first " << a.GetFirst() << endl;
-    cout << "length " << a.GetLength() << endl;
-    a.ClearList();
 }
