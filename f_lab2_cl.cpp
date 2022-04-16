@@ -28,7 +28,7 @@ T DynamicArray<T>::Get(int index) {
 }
 
 template <typename T>
-int DynamicArray<T>::GetSize() {
+int DynamicArray<T>::GetLength() {
     return length;
 }
 
@@ -52,6 +52,8 @@ void DynamicArray<T>::Resize(int newSize) {
     length = newSize;
 }
 
+///////////////////////////////////////////////////////////////////////
+
 template <typename T>
 LinkedList<T>::LinkedList(T *items, int count) {
     head = NULL;
@@ -66,6 +68,22 @@ LinkedList<T>::LinkedList() {
     length = 0;
     head = NULL;
     tail = NULL;
+}
+
+template <typename T>
+LinkedList<T>::LinkedList(LinkedList<T> *list) {
+   int size = list->length;
+   head = NULL;
+   tail = NULL;
+   Element *ptr = list->head;
+   for (int i = 0; i < list->length; i++) {
+       if (i == list->length - 1) {
+            tail = ptr;
+       }
+        this->Append(ptr->data);
+        ptr = ptr->next;
+   }
+   length = list->length;
 }
 
 template <typename T>
@@ -155,15 +173,35 @@ void LinkedList<T>::InsertAt(T item, int index) {
 }
 
 template <typename T>
-void LinkedList<T>::ClearList() {
-    Element *ptr = head;
-    Element *ptr_prev = head->next;
-    for (int i = 0; i < length; i++) {
-        cout << ptr->data << endl;
-        delete ptr;
-        ptr = ptr_prev;
-        if (ptr_prev) {
-            ptr_prev = ptr_prev->next;
-        }
+LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex) {
+    if (startIndex > endIndex) {
+        throw invalid_argument("startIndex should be not bigger than endIndex");
     }
+    if (startIndex < 0 || endIndex >= length) {
+        throw out_of_range("Indexes out of range");
+    }
+    LinkedList<T> *subList  = new LinkedList<T>();
+    int curIndex = 0;
+    Element *ptr  = head->next;
+    while (curIndex <= endIndex) {
+        if (curIndex >= startIndex) {
+            subList->Append(ptr->data);
+        }
+        ptr = ptr->next;
+        curIndex++;
+    }
+    return subList;
+}
+
+template <typename T>
+LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list) {
+    Element *cur = head;
+    while (cur->next != end) {
+        cur = cur->next;
+    }
+    cur->next = list->head->next;
+    length += list->length;
+    end = list->end;
+    return this;
+
 }
