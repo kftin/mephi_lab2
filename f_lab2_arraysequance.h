@@ -1,9 +1,12 @@
 #ifndef F_LAB2_SEQ
 #define F_LAB2_SEQ
 
-class ArraySequance: public Sequance {
+#include <f_lab2_dynamicarray.h>
+#include <f_lab2_sequance.h>
+
+class ArraySequance: public Sequance<T> {
     private:
-        DynamicArray *items;
+        DynamicArray<T> *items;
 
     public:
 
@@ -79,7 +82,8 @@ Sequance<T> *ArraySequance<T>::GetSubsequance(int startIndex, int endIndex) cons
         array[i] = items->Get(startIndex + i);
     }
     ArraySequance<T> *newArraySequance = new ArraySequance(array, endIndex - startIndex + 1);
-    //return static_pointer_cast<Sequance<T>>(newArraySequance);
+    delete[] array;
+    return newArraySequance;
 }
 
 
