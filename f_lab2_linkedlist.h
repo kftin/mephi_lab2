@@ -1,56 +1,39 @@
-#include <iostream>
+#ifndef F_LAB2_LINKEDLIST
+#define F_LAB2_LINKEDLIST
 
-#include "f_lab2_cl.h"
+#include <stdexcept>
 
 using namespace std;
 
 template <typename T>
-DynamicArray<T>::DynamicArray(T *items, int count) {
-    pointer = new T[count];
-    for (int i = 0; i < count; i++) {
-        pointer[i] = items[i];
-    }
-    length = count;
-}
+class LinkedList {
+    private:        
+        class Element {
+            public:
+                T data;
+                Element *next;
+        };
 
-template <typename T>
-DynamicArray<T>::DynamicArray(int size) {
-    pointer = new T[size];
-    length = size;
-}
+        int length;
+        Element *head;
+        Element *tail;
 
-template <typename T>
-T DynamicArray<T>::Get(int index) {
-    if (index > length || index < 0) {
-        throw out_of_range("index out of range");
-    }
-    return pointer[index];
-}
+    public:
+        LinkedList(T *items, int count);
+        LinkedList();
+        LinkedList(LinkedList<T> *list);
 
-template <typename T>
-int DynamicArray<T>::GetLength() {
-    return length;
-}
+        T GetFirst();
+        T GetLast();
+        T Get(int index);
+        LinkedList<T> *GetSubList(int startIndex, int endIndex);
+        int GetLength();
 
-template <typename T>
-void DynamicArray<T>::Set(int index, T value) {
-    if (index < 0 || index > length) {
-        throw out_of_range("index out of range");
-    }
-    pointer[index] = value;
-}
-
-template <typename T>
-void DynamicArray<T>::Resize(int newSize) {
-    T *ptr = new T[newSize];
-    int copySize = min(newSize, length);
-    for (int i = 0; i < copySize; i++) {
-        ptr[i] = pointer[i];
-    }
-    delete[] pointer;
-    pointer = ptr;
-    length = newSize;
-}
+        void Append(T item);
+        void Prepend(T item);
+        void InsertAt(T item, int index);
+        LinkedList<T> *Concat(LinkedList<T> *list);
+};
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -65,9 +48,9 @@ LinkedList<T>::LinkedList(T *items, int count) {
 
 template <typename T>
 LinkedList<T>::LinkedList() {
-    length = 0;
-    head = NULL;
-    tail = NULL;
+    this->length = 0;
+    this->head = NULL;
+    this->tail = NULL;
 }
 
 template <typename T>
@@ -76,14 +59,14 @@ LinkedList<T>::LinkedList(LinkedList<T> *list) {
    head = NULL;
    tail = NULL;
    Element *ptr = list->head;
-   for (int i = 0; i < list->length; i++) {
-       if (i == list->length - 1) {
+   for (int i = 0; i < size; i++) {
+       if (i == size - 1) {
             tail = ptr;
        }
         this->Append(ptr->data);
         ptr = ptr->next;
    }
-   length = list->length;
+   length = size;
 }
 
 template <typename T>
@@ -196,12 +179,14 @@ LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex) {
 template <typename T>
 LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list) {
     Element *cur = head;
-    while (cur->next != end) {
+    while (cur->next != tail) {
         cur = cur->next;
     }
     cur->next = list->head->next;
     length += list->length;
-    end = list->end;
+    tail = list->tail;
     return this;
 
 }
+
+#endif

@@ -1,15 +1,14 @@
 CC = g++
 
+CFLAGS = -Wall -g
+
 all:main
 
-main:main.o f_lab2_cl.o
-	$(CC) main.o f_lab2_cl.o -o main
+main:main.o
+	$(CC) $(CFLAGS) main.o -o main
 
-main.o: main.cpp
-	$(CC) -c main.cpp
-
-f_lab2_cl.o: f_lab2_cl.cpp
-	$(CC) -c f_lab2_cl.cpp
+main.o: main.cpp f_lab2_linkedlist.h f_lab2_dynamicarray.h f_lab2_sequance.h f_lab2_arraysequance.h
+	$(CC) $(CFLAGS) -c main.cpp
 
 clean:
 	rm -rf *.o main
