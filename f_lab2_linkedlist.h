@@ -23,6 +23,7 @@ class LinkedList {
         LinkedList();
         LinkedList(LinkedList<T> *list);
 
+        void Set(int index, T item);
         T GetFirst();
         T GetLast();
         T Get(int index);
@@ -36,6 +37,16 @@ class LinkedList {
 };
 
 ///////////////////////////////////////////////////////////////////////
+
+template <typename T>
+void LinkedList<T>::Set(int index, T item) {
+    Element *ptr = head;
+    for (int i = 0; i < index; i++) {
+        ptr = ptr->next;
+    }
+    ptr->data = item;
+    
+}
 
 template <typename T>
 LinkedList<T>::LinkedList(T *items, int count) {

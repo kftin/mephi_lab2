@@ -7,8 +7,7 @@ class Sequance {
         virtual T Get(int index) const = 0;
 
         virtual void Set(int index, T value) = 0;
-        virtual void Resize(int newSize) = 0;
-        virtual Sequance<T> *GetSubsequance(int startIndex, int endIndex) const = 0;
+        virtual Sequance<T> *GetSubSequance(int startIndex, int endIndex) const = 0;
 
         virtual T GetFirst() const = 0;
         virtual T GetLast() const = 0;
@@ -17,7 +16,7 @@ class Sequance {
         virtual void Append(T item) = 0;
         virtual void Prepend(T item) = 0;
         virtual void InsertAt(T item, int index) = 0;
-        virtual Sequance<T> *Concat(Sequance<T> *list) const = 0;
+        virtual Sequance<T> *Concat(Sequance<T> *list) = 0;
         
         virtual ~Sequance() {}
 };

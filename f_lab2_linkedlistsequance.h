@@ -1,10 +1,10 @@
 #ifndef F_LAB2_LINKEDLISTSEQUANCE
 #define F_LAB2_LINKEDLISTSEQUANCE
 
-#include <f_lab2_linkedlist.h>
-#include <f_lab2_sequance.h>
+#include "f_lab2_linkedlist.h"
+#include "f_lab2_sequance.h"
 
-template <tyoename T>
+template <typename T>
 class LinkedListSequance : public Sequance<T> {
     private:
         LinkedList<T> *items;
@@ -16,8 +16,12 @@ class LinkedListSequance : public Sequance<T> {
         LinkedListSequance(T *items, int count) {
             this->items = new LinkedList<T>(items, count);
         }
-        LinkedListSequance(const LinkedList<T> *list) {
+        LinkedListSequance(LinkedList<T> *list) {
             this->items = new LinkedList<T>(list);
+        }
+
+        void Set(int index, T item) override {
+            this->items->Set(index, item);
         }
 
         int GetLength() const override {
@@ -35,7 +39,7 @@ class LinkedListSequance : public Sequance<T> {
 
         Sequance<T> *GetSubSequance(int startIndex, int endIndex) const override {
             LinkedList<T> *list = this->items->GetSubList(startIndex, endIndex);
-            LinkedListSequance<T> *listsequance = new LinkedListSequane<T>(list);
+            LinkedListSequance<T> *listsequance = new LinkedListSequance<T>(list);
             delete list;
             return listsequance;
         }
