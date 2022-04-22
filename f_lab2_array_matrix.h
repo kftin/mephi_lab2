@@ -1,48 +1,56 @@
-#ifndef F_LAB2_LINKEDLIST_MATRIX
-#define F_LAB2_LINKEDLIST_MATRIX
+#ifndef F_LAB2_ARRAY_MATRIX
+#define F_LAB2_ARRAY_MATRIX
 
 #include <cmath>
 
 #include "f_lab2_matrix.h"
-#include "f_lab2_linkedlistsequance.h"
+#include "f_lab2_arraysequance.h"
 
 template <typename T>
-class LinkedListMatrix : public Matrix<T> {
+class ArrayMatrix : public Matrix<T> {
     public:
-        LinkedListMatrix(T *array, int count);
-        //LinkedListMatrix(Sequance<T> *sequance);
+        ArrayMatrix(T *array, int count);
+        //ArrayMatrix(Sequance<T> *sequance);
 
         Matrix<T> *Sum(Matrix<T> *m2) override;
         Matrix<T> *Mult(Matrix<T> *m2) override;
 
-        ~LinkedListMatrix() {
+        ~ArrayMatrix() {
             delete this->value;
         }
 };
 
 template <typename T>
-LinkedListMatrix<T>::LinkedListMatrix(T *array, int count) {
-    LinkedListSequance<T> *sequance = new LinkedListSequance<T>(array, count);
+ArrayMatrix<T>::ArrayMatrix(T *array, int count) {
+    ArraySequance<T> *sequance = new ArraySequance<T>(array, count);
     this->value = sequance;
     this->size = sqrt(this->value->GetLength());
 }
 
+
+/*template <typename T>
+ArrayMatrix<T>::ArrayMatrix(Sequance<T> *sequance) {
+    ArrayMatrix<T> *tmp = new ArraySequance<T>(sequance);
+    this->value = tmp;
+    this->size = sqrt(this->value->GetLength());
+}*/
+
 template <typename T>
-Matrix<T> *LinkedListMatrix<T>::Sum(Matrix<T> *m2) {
+Matrix<T> *ArrayMatrix<T>::Sum(Matrix<T> *m2) {
     T *array = new T[this->value->GetLength()];
-    if (m2->GetSize() * m2->GetSize()  == this->value->GetLength()) {
+    if (m2->GetSize() * m2->GetSize() == this->value->GetLength()) {
         for (int i = 0; i < this->value->GetLength(); i++) {
             array[i] = this->value->Get(i) + m2->Get(i);
         }
     } else {
         cout << "FUXK\n";
     }
-    Matrix<T> *res = new LinkedListMatrix(array, this->value->GetLength());
+    Matrix<T> *res = new ArrayMatrix(array, this->value->GetLength());
     return res;
 }
 
 template <typename T>
-Matrix<T> *LinkedListMatrix<T>::Mult(Matrix<T> *m2) {
+Matrix<T> *ArrayMatrix<T>::Mult(Matrix<T> *m2) {
     T *array = new T[this->value->GetLength()];
     for (int i = 0; i < this->value->GetLength(); i++) {
         array[i] = T(0);
@@ -60,8 +68,9 @@ Matrix<T> *LinkedListMatrix<T>::Mult(Matrix<T> *m2) {
     else {
         cout << "FUXK\n";
     }
-    Matrix<T> *res = new LinkedListMatrix(array, this->value->GetLength());
+    Matrix<T> *res = new ArrayMatrix(array, this->value->GetLength());
     return res;
 }
+
 
 #endif

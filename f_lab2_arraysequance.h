@@ -1,9 +1,10 @@
 #ifndef F_LAB2_SEQ
 #define F_LAB2_SEQ
 
-#include <f_lab2_dynamicarray.h>
-#include <f_lab2_sequance.h>
+#include "f_lab2_dynamicarray.h"
+#include "f_lab2_sequance.h"
 
+template <typename T>
 class ArraySequance: public Sequance<T> {
     private:
         DynamicArray<T> *items;
