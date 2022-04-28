@@ -23,6 +23,10 @@ class Matrix {
                 value->Set(i, value->Get(i) * cnst);
             }
         }
+        /*
+        Matrix<T> *operator + (Matrix<T> *m2) {
+            return this->Sum(m2);
+        }*/
 
         virtual ~Matrix() {}
 };

@@ -13,13 +13,20 @@ class LinkedListMatrix : public Matrix<T> {
         //LinkedListMatrix(Sequance<T> *sequance);
 
         Matrix<T> *Sum(Matrix<T> *m2) override;
-        Matrix<T> *Mult(Matrix<T> *m2) override;
+        Matrix<T> *Mult(Matrix<T> *m2) override;                    
+
+        //friend LinkedListMatrix<T> &operator +(LinkedListMatrix<T> &m1, LinkedListMatrix<T> &m2);
 
         ~LinkedListMatrix() {
             delete this->value;
         }
 };
-
+/*
+template <typename T>
+LinkedListMatrix<T> & LinkedListMatrix<T>::operator + (LinkedListMatrix<T> &m1, LinkedListMatrix<T> &m2) {
+return *(m1.Sum(&m2));
+}
+*/
 template <typename T>
 LinkedListMatrix<T>::LinkedListMatrix(T *array, int count) {
     LinkedListSequance<T> *sequance = new LinkedListSequance<T>(array, count);
@@ -38,6 +45,7 @@ Matrix<T> *LinkedListMatrix<T>::Sum(Matrix<T> *m2) {
         cout << "FUXK\n";
     }
     Matrix<T> *res = new LinkedListMatrix(array, this->value->GetLength());
+    delete[] array;
     return res;
 }
 
@@ -61,6 +69,7 @@ Matrix<T> *LinkedListMatrix<T>::Mult(Matrix<T> *m2) {
         cout << "FUXK\n";
     }
     Matrix<T> *res = new LinkedListMatrix(array, this->value->GetLength());
+    delete[] array;
     return res;
 }
 

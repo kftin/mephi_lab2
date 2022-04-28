@@ -1,5 +1,5 @@
 #ifndef F_LAB2_DYNAMICARRAY
-#define F_LAB2_DYNMAICSRRAY
+#define F_LAB2_DYNAMICARRAY
 
 #include <stdexcept>
 

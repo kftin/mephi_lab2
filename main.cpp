@@ -1,9 +1,13 @@
 #include <iostream>
+#include <time.h>
 
 #include "f_lab2_linkedlist.h"
 #include "f_lab2_dynamicarray.h"
 #include "f_lab2_linkedlist_matrix.h"
 #include "f_lab2_array_matrix.h"
+#include "f_lab2_stack.h"
+#include "f_lab2_dequeue.h"
+#include "f_lab2_queue.h"
 
 using namespace std;
 
@@ -12,43 +16,36 @@ int main() {
     for (int i = 0; i < 4; i++) {
         cin >> ptr[i];
     }
-/*
-    ArrayMatrix<int> *a = new ArrayMatrix<int>(ptr, 4);
-    ArrayMatrix<int> *b = new ArrayMatrix<int>(ptr, 4);
-    ArrayMatrix<int> *res = (ArrayMatrix<int> *) a->Mult(b);*/
 
-    LinkedListMatrix<int> *a = new LinkedListMatrix<int>(ptr, 4);
+    cout << "ArrayDequeue: " << endl;
+    ArrayDequeue<int> a(ptr, 4);
+    cout << "Get first: " << a.GetFirst() << endl;
+    cout << "Get last: " << a.GetLast() << endl;
+    a.SetLast(11111);
+    cout <<  "Get last after set last 11111 : " << a.GetLast() << endl;
+    a.RemoveFirst();
+    a.RemoveLast();
+    cout << "remove first and last, value: " << endl;
+    cout << a.GetFirst() << endl;
+    cout << a.GetLast() << endl;
 
-    a->Mult_on_const(5);
-    LinkedListMatrix<int> *b = new LinkedListMatrix<int>(ptr, 4);
+    cout << "ArrayStack: " << endl;
+    ArrayStack<int>  b(ptr, 4);
+    cout << "Get first: " << b.GetFirst() << endl;
+    b.SetFirst(666);
+    cout << "Get first after set first 666 : " << b.GetFirst() << endl;
+    b.RemoveFirst();
+    cout << "GetFirst after remove first: " << b.GetFirst()<< endl;
 
-    LinkedListMatrix<int> *res = (LinkedListMatrix<int> *) a->Mult(b);
-    //cout << "Mult size  " << res->GetSize() << endl;
-    for (int i = 0; i < 4; i++) {
-        cout << res->Get(i) << " ";
-    }   
+    cout << "LinkedListQueue: " << endl;
+    LinkedListQueue<int> c(ptr, 4);
+    c.SetFirst(777);
+    cout << "Get last: " << c.GetLast() << endl;
+    c.RemoveLast();
+    cout << "Get last after remove last: " << c.GetLast() << endl; 
 
 
-    cout << endl;
-    //LinkedList<int> b;
-    //LinkedList<int> a(ptr, 6);
-    //LinkedList<int> b(ptr_1, 2);
 
-    //LinkedList<int> *tmp = a.GetSubList(1, 5);
-    //LinkedList<int> b(&a);
-    /*b.Append(0);
-    b.Append(1);
-    b.Append(2);
-    b.Append(3);
-    LinkedList<int> *tmp = b.GetSubList(1, 2);
-    cout << "0 index b " << b.GetFirst() << endl;
-    cout << "length b " << b.GetLength() << endl;
-
-    cout << "last index tmp " << tmp->GetLast() << endl;
-    cout << "0 index tmp " << tmp->GetFirst() << endl;
-    cout << "length tmp" << tmp->GetLength() << endl;*/
     delete[] ptr;
-    delete a;
-    delete b;
-    delete res;
 }
+

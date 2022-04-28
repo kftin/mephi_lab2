@@ -5,6 +5,7 @@
 
 #include "f_lab2_matrix.h"
 #include "f_lab2_arraysequance.h"
+#include "f_lab2_sequance.h"
 
 template <typename T>
 class ArrayMatrix : public Matrix<T> {
@@ -46,6 +47,7 @@ Matrix<T> *ArrayMatrix<T>::Sum(Matrix<T> *m2) {
         cout << "FUXK\n";
     }
     Matrix<T> *res = new ArrayMatrix(array, this->value->GetLength());
+    delete[] array;
     return res;
 }
 
@@ -69,6 +71,7 @@ Matrix<T> *ArrayMatrix<T>::Mult(Matrix<T> *m2) {
         cout << "FUXK\n";
     }
     Matrix<T> *res = new ArrayMatrix(array, this->value->GetLength());
+    delete[] array;
     return res;
 }
 

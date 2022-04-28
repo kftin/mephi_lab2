@@ -30,10 +30,22 @@ class LinkedList {
         LinkedList<T> *GetSubList(int startIndex, int endIndex);
         int GetLength();
 
-        void Append(T item);
+        void Append(T item); 
         void Prepend(T item);
         void InsertAt(T item, int index);
         LinkedList<T> *Concat(LinkedList<T> *list);
+
+        ~LinkedList() {
+            Element *ptr = head;
+            Element *ptr_prev = head->next;
+            for (int i = 0; i < length; i++) {
+                delete ptr;
+                ptr = ptr_prev;
+                if (ptr_prev) {
+                    ptr_prev = ptr_prev->next;
+                }
+            }
+        }
 };
 
 ///////////////////////////////////////////////////////////////////////
