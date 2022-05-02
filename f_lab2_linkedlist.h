@@ -39,6 +39,8 @@ class LinkedList {
             Element *ptr = head;
             Element *ptr_prev = head->next;
             for (int i = 0; i < length; i++) {
+                //cout << "deletik  " << ptr->data << endl;
+                //cout << "+ " << endl;
                 delete ptr;
                 ptr = ptr_prev;
                 if (ptr_prev) {
@@ -188,7 +190,7 @@ LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex) {
     }
     LinkedList<T> *subList  = new LinkedList<T>();
     int curIndex = 0;
-    Element *ptr  = head->next;
+    Element *ptr  = head;
     while (curIndex <= endIndex) {
         if (curIndex >= startIndex) {
             subList->Append(ptr->data);
@@ -205,7 +207,8 @@ LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list) {
     while (cur->next != tail) {
         cur = cur->next;
     }
-    cur->next = list->head->next;
+    cur = cur->next;
+    cur->next = list->head;
     length += list->length;
     tail = list->tail;
     return this;

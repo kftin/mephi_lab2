@@ -14,9 +14,15 @@ class Dequeue {
 
     public:
         T GetFirst() const { return value->Get(0); }
-        void SetFirst(T item) { value->Prepend(item); }
+        void SetFirst(T item) { 
+            value->Prepend(item);
+            size++;
+        }
         T GetLast() const { return value->GetLast(); }
-        void SetLast(T item) { value->Append(item); }
+        void SetLast(T item) {
+            value->Append(item);
+            size++;
+        }
         void RemoveFirst() {
             Sequance<T> *tmp = value->GetSubSequance(1, size - 1);
             delete value;
@@ -25,7 +31,7 @@ class Dequeue {
         }
 
         void RemoveLast() {
-            Sequance<T> *tmp = value->GetSubSequance(0, size - 1);
+            Sequance<T> *tmp = value->GetSubSequance(0, size - 2);
             delete value;
             value = tmp;
             size--;

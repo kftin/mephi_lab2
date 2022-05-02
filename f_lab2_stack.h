@@ -14,7 +14,10 @@ class Stack {
 
     public:
         T GetFirst() const { return value->Get(0); }
-        void SetFirst(T item) { value->Prepend(item); }
+        void SetFirst(T item) { 
+            value->Prepend(item); 
+            size++;
+        }
         void RemoveFirst() {
             Sequance<T> *tmp = value->GetSubSequance(1, size - 1);
             delete value;
