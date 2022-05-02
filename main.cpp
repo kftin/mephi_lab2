@@ -54,7 +54,7 @@ int main() {
     }
 
     //delete a1;
-    delete c1;
+    //delete c1;
     delete b1;
     
     delete[] ptr;
