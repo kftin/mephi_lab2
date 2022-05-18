@@ -9,7 +9,7 @@
 template <typename T>
 class LinkedListMatrix : public Matrix<T> {
     public:
-        LinkedListMatrix(T *array, int count);
+        LinkedListMatrix(T *array, int count, int h, int w);
         //LinkedListMatrix(Sequance<T> *sequance);
 
         Matrix<T> *Sum(Matrix<T> *m2) override;
@@ -28,47 +28,59 @@ return *(m1.Sum(&m2));
 }
 */
 template <typename T>
-LinkedListMatrix<T>::LinkedListMatrix(T *array, int count) {
-    LinkedListSequance<T> *sequance = new LinkedListSequance<T>(array, count);
+LinkedListMatrix<T>::LinkedListMatrix(T *array, int count, int h, int w) {
+    LinkedListSequance<T> *sequance = new LinkedListSequance<T>(array, count, h, w);
     this->value = sequance;
-    this->size = sqrt(this->value->GetLength());
+    this->size = this->value->GetLength();
+    this->width = w;
+    this->heigth = h;
 }
 
 template <typename T>
 Matrix<T> *LinkedListMatrix<T>::Sum(Matrix<T> *m2) {
     T *array = new T[this->value->GetLength()];
-    if (m2->GetSize() * m2->GetSize()  == this->value->GetLength()) {
+    if (m2->GetSize()  == this->value->GetLength()) {
         for (int i = 0; i < this->value->GetLength(); i++) {
             array[i] = this->value->Get(i) + m2->Get(i);
         }
     } else {
         cout << "FUXK\n";
     }
-    Matrix<T> *res = new LinkedListMatrix(array, this->value->GetLength());
+    Matrix<T> *res = new LinkedListMatrix(array, this->value->GetLength(), this->value->GetHeigth(), this->value->GetWidth());
     delete[] array;
     return res;
 }
 
 template <typename T>
 Matrix<T> *LinkedListMatrix<T>::Mult(Matrix<T> *m2) {
-    T *array = new T[this->value->GetLength()];
-    for (int i = 0; i < this->value->GetLength(); i++) {
+    /*T *array = new T[this->value->GetHeigth() * m2->value->GetWidth()];
+    cout << "size mas " << this->value->GetHeigth() * m2->value->GetWidth() << endl;
+    for (int i = 0; i < this->value->GetHeigth() * m2->value->GetWidth(); i++) {
+        array[i] = T(0);
+        //cout << array[i] << endl;
+    }*/
+    int n_2 = m2->GetHeigth();
+    int m_2 = m2->GetWidth();
+    int n1 = this->GetHeigth();
+    int m1 = this->GetWidth();
+
+    cout << n1 << m1 << n_2 << m_2 << endl;
+    
+    T *array = new T[n1 * m_2];
+    for (int i = 0; i < n1 * m_2; i++) {
         array[i] = T(0);
     }
-    int n = m2->GetSize();
-    if (n * n == this->value->GetLength()) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < n; k++) {
-                    array[i * n + j] += this->Get(i * n + k) * m2->Get(k * n + j);
-                }
+
+    for (int i = 0; i < n1; i++) {
+        for (int j = 0; j < m_2; j++) {
+            for (int k = 0; k < m1; k++) {
+                array[i * m_2 + j] += this->Get(i * m1 + k) * m2->Get(k * m_2 + j);
+                cout << i * m1 + k << " * " << k * m_2 + j << '=' << i * m_2 + j  << endl;
             }
         }
     }
-    else {
-        cout << "FUXK\n";
-    }
-    Matrix<T> *res = new LinkedListMatrix(array, this->value->GetLength());
+
+    Matrix<T> *res = new LinkedListMatrix(array, this->value->GetHeigth() * m2->value->GetWidth(), n1, m_2);
     delete[] array;
     return res;
 }

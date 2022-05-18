@@ -12,51 +12,49 @@
 using namespace std;
 
 int main() {
-    int *ptr = new int[4];
-    cout << "Enter values" << endl;
-    for (int i = 0; i < 4; i++) {
+    int *ptr = new int[6];
+    cout << "Enter matrix a" << endl;
+    for (int i = 0; i < 6; i++) {
         cin >> ptr[i];
     }
 
-    cout << "ArrayDequeue: " << endl;
-    ArrayDequeue<int> a(ptr, 4);
-    cout << "Get first: " << a.GetFirst() << endl;
-    cout << "Get last: " << a.GetLast() << endl;
-    a.SetLast(1111);
-    cout <<  "Get last after set last 11111 : " << a.GetLast() << endl;
-    a.RemoveFirst();
-    a.RemoveLast();
-    cout << "remove first and last, value: " << endl;
-    cout << a.GetFirst() << endl;
-    cout << a.GetLast() << endl << endl;;
+    LinkedListMatrix<int> *a = new LinkedListMatrix(ptr, 6, 3, 2);
+    //cout << a->GetHeigth() << endl;
+    //cout << a->GetWidth() << endl;
+    LinkedListMatrix<int> *c = new LinkedListMatrix(ptr, 6, 3, 2);
+    c->Mult_on_const(5);
+    LinkedListMatrix<int> *b = (LinkedListMatrix<int> *)a->Sum(c);
 
-    cout << "ArrayStack: " << endl;
-    ArrayStack<int>  b(ptr, 4);
-    cout << "Get first: " << b.GetFirst() << endl;
-    b.SetFirst(666);
-    cout << "Get first after set first 666 : " << b.GetFirst() << endl;
-    b.RemoveFirst();
-    cout << "GetFirst after remove first: " << b.GetFirst()<< endl << endl;
-
-    cout << "LinkedListQueue: " << endl;
-    LinkedListQueue<int> c(ptr, 4);
-    c.SetFirst(777);
-    cout << "Get last: " << c.GetLast() << endl;
-    c.RemoveLast();
-    cout << "Get last after remove last: " << c.GetLast() << endl << endl; 
-
-    LinkedList<int> *c1 = new LinkedList<int>(ptr, 4);
-    LinkedList<int> *a1 = new LinkedList<int>(ptr, 4);
-    LinkedList<int> *b1 = a1->Concat(c1);
-    cout << "concat two lists " << endl;
-    for (int i = 0; i < 8; i++) {
-        cout << b1->Get(i) << endl; 
+    cout << "Sum matrix a and a*5: " << endl;
+    for (int i = 0; i < b->GetSize(); i++) {
+        cout << b->Get(i) << ' ';
+        if ((i + 1) % b->GetWidth() == 0) {
+            cout << endl;
+        }
     }
+    cout << endl;
 
-    //delete a1;
-    //delete c1;
-    delete b1;
-    
+    LinkedListMatrix<int> *q = new LinkedListMatrix(ptr, 6, 2, 3);
+
+    for (int i = 0; i < q->GetSize(); i++) {
+        cout << q->Get(i) << ' ';
+        if ((i + 1) % q->GetWidth() == 0) {
+            cout << endl;
+        }
+    }
+    cout << endl;
+
+    //cout << q->GetHeigth() << ' ' << q->GetWidth() << endl;
+    LinkedListMatrix<int> *w = (LinkedListMatrix<int> *)a->Mult(q);
+
+    for (int i = 0; i < w->GetSize(); i++) {
+        cout << w->Get(i) << ' ';
+        if ((i + 1) % w->GetWidth() == 0) {
+            cout << endl;
+        }
+    }
+    cout << endl;
+
     delete[] ptr;
 }
 

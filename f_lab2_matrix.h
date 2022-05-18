@@ -9,11 +9,16 @@
 template <typename T>
 class Matrix {
     protected:
-        Sequance<T> *value;
+        //Sequance<T> *value;
         int size;
+        int heigth;
+        int width;
 
     public:
+        Sequance<T> *value;
         int GetSize() const { return this->size; }
+        int GetHeigth() const { return this->heigth; }
+        int GetWidth() const { return this->width; }
         T Get(int index) const { return value->Get(index); }
 
         virtual Matrix<T> *Sum(Matrix<T> *m2) = 0;

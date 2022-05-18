@@ -13,8 +13,8 @@ class LinkedListSequance : public Sequance<T> {
         LinkedListSequance() {
             this->items = new LinkedList<T>; 
         }
-        LinkedListSequance(T *items, int count) {
-            this->items = new LinkedList<T>(items, count);
+        LinkedListSequance(T *items, int count, int h, int w) {
+            this->items = new LinkedList<T>(items, count, h, w);
         }
         LinkedListSequance(LinkedList<T> *list) {
             this->items = new LinkedList<T>(list);
@@ -27,6 +27,13 @@ class LinkedListSequance : public Sequance<T> {
         int GetLength() const override {
             return this->items->GetLength();
         }
+        int GetHeigth() const override {
+            return this->items->GetHeigth();
+        }
+        int GetWidth() const override {
+            return this->items->GetWidth();
+        }
+
         T GetFirst() const override {
             return this->items->GetFirst();
         }
