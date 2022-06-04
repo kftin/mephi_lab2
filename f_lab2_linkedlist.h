@@ -76,8 +76,18 @@ LinkedList<T>::LinkedList(T *items, int count, int h, int w) {
     tail = NULL;
     width = w;
     heigth = h;
-    for (int i = 0; i < count; i++) {
-        this->Append(items[i]);
+    if (h * w == count * count) {
+        for (int i = 0; i < count * count; i++) {
+            if (i % (w + 1) == 0) {
+                this->Append(items[i / (w + 1)]);
+            } else {
+                this->Append(0);
+            }
+        }
+    } else {
+        for (int i = 0; i < count; i++) {
+            this->Append(items[i]);
+        }
     }
     length = h * w;
 }

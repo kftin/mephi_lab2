@@ -53,19 +53,11 @@ Matrix<T> *LinkedListMatrix<T>::Sum(Matrix<T> *m2) {
 
 template <typename T>
 Matrix<T> *LinkedListMatrix<T>::Mult(Matrix<T> *m2) {
-    /*T *array = new T[this->value->GetHeigth() * m2->value->GetWidth()];
-    cout << "size mas " << this->value->GetHeigth() * m2->value->GetWidth() << endl;
-    for (int i = 0; i < this->value->GetHeigth() * m2->value->GetWidth(); i++) {
-        array[i] = T(0);
-        //cout << array[i] << endl;
-    }*/
-    int n_2 = m2->GetHeigth();
+    //int n_2 = m2->GetHeigth();
     int m_2 = m2->GetWidth();
     int n1 = this->GetHeigth();
     int m1 = this->GetWidth();
-
-    cout << n1 << m1 << n_2 << m_2 << endl;
-    
+    //cout << n1 << m1 << n_2 << m_2 << endl;
     T *array = new T[n1 * m_2];
     for (int i = 0; i < n1 * m_2; i++) {
         array[i] = T(0);
@@ -75,7 +67,7 @@ Matrix<T> *LinkedListMatrix<T>::Mult(Matrix<T> *m2) {
         for (int j = 0; j < m_2; j++) {
             for (int k = 0; k < m1; k++) {
                 array[i * m_2 + j] += this->Get(i * m1 + k) * m2->Get(k * m_2 + j);
-                cout << i * m1 + k << " * " << k * m_2 + j << '=' << i * m_2 + j  << endl;
+                //cout << i * m1 + k << " * " << k * m_2 + j << '=' << i * m_2 + j  << endl;
             }
         }
     }
